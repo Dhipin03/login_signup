@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:login_signup/main.dart';
 import 'package:login_signup/view/login_screen/Loginscreen.dart';
 
@@ -21,7 +22,6 @@ class _SignupscreenState extends State<Signupscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         backgroundColor: Colors.white,
       ),
       body: SafeArea(
@@ -163,13 +163,7 @@ class _SignupscreenState extends State<Signupscreen> {
                       if (_formKey.currentState!.validate()) {
                         regemail = emailcontroller.text;
                         regpass = passwordcontroller.text;
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Loginscreen(),
-                          ),
-                          (route) => false,
-                        );
+                        GoRouter.of(context).pushNamed('login');
                       }
                     },
                     child: Text("Sign Up"),

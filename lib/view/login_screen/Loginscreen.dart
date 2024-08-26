@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:login_signup/main.dart';
-import 'package:login_signup/view/home_Screen/homescreen.dart';
-import 'package:login_signup/view/signup_screen/signupscreen.dart';
 
 class Loginscreen extends StatefulWidget {
   Loginscreen({
@@ -133,11 +132,7 @@ class _LoginscreenState extends State<Loginscreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ));
+                        GoRouter.of(context).pushNamed('homescreen');
                       }
                     },
                     child: Text("Sign in"),
@@ -159,11 +154,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       Text("Already have an account?"),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Signupscreen(),
-                              ));
+                          GoRouter.of(context).pushNamed('signup');
                         },
                         child: Text(
                           "SignUp",

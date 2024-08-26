@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup/view/login_screen/Loginscreen.dart';
+import 'package:login_signup/view/projects/routers/routeconfig.dart';
 
 String? regpass;
 String? regemail;
@@ -12,9 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final routerconfig = MyApprouteconfig().router1;
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Loginscreen(),
+      routeInformationParser: routerconfig.routeInformationParser,
+      routerDelegate: routerconfig.routerDelegate,
+      routeInformationProvider: routerconfig.routeInformationProvider,
     );
   }
 }
