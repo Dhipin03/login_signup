@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup/view/projects/routers/routeconfig.dart';
+import 'package:login_signup/projects/routers/routeconfig.dart';
 
 String? regpass;
 String? regemail;
