@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/view/login_screen/Loginscreen.dart';
 
-import 'package:login_signup/view/Sign_up/signup_screen.dart';
-
+String? regpass;
+String? regemail;
 void main() {
   runApp(MyApp());
 }
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Signup_screen(),
+      home: Loginscreen(),
     );
   }
 }

@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup/view/Login/Login_screen.dart';
+import 'package:login_signup/main.dart';
+import 'package:login_signup/view/home_Screen/homescreen.dart';
+import 'package:login_signup/view/signup_screen/signupscreen.dart';
 
-class Signup_screen extends StatefulWidget {
-  Signup_screen({super.key});
+class Loginscreen extends StatefulWidget {
+  Loginscreen({
+    super.key,
+  });
 
   @override
-  State<Signup_screen> createState() => _Signup_screenState();
+  State<Loginscreen> createState() => _LoginscreenState();
 }
 
-class _Signup_screenState extends State<Signup_screen> {
+class _LoginscreenState extends State<Loginscreen> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController confirmpasswordcontroller = TextEditingController();
-  bool val = false;
-  bool val1 = false;
+  bool val = true;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         backgroundColor: Colors.white,
       ),
       body: SafeArea(
@@ -33,7 +35,7 @@ class _Signup_screenState extends State<Signup_screen> {
               child: Column(
                 children: [
                   Text(
-                    "Sign up for Free",
+                    "Sign in to Your Account",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                   ),
                   SizedBox(
@@ -43,17 +45,14 @@ class _Signup_screenState extends State<Signup_screen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Enter your Email address';
-                      }
-                      if (emailcontroller.text.contains('@')) {
+                      } else if (value != regemail) {
+                        return "Invalid email";
+                      } else {
                         return null;
                       }
-                      return "Invalid Email address";
                     },
                     controller: emailcontroller,
                     decoration: InputDecoration(
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.grey.shade400)),
@@ -66,45 +65,42 @@ class _Signup_screenState extends State<Signup_screen> {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.grey.shade400)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.grey.shade400)),
                     ),
                   ),
                   SizedBox(height: 22),
                   TextFormField(
                     obscureText: val,
                     validator: (value) {
+                      if (passwordcontroller.text.length <= 5) {
+                        return "Password must be at least 6 characters long";
+                      }
                       if (value == null || value.isEmpty) {
                         return 'Enter your Password';
                       }
-                      if (passwordcontroller.text.length >= 6) {
-                        return null;
+                      if (value != regpass) {
+                        return 'Password does not match';
                       }
-                      return "Password must be at least 6 characters long";
+                      return null;
                     },
                     controller: passwordcontroller,
                     decoration: InputDecoration(
+                      suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              val = !val;
+                            });
+                          },
+                          child: Icon(
+                              !val ? Icons.visibility : Icons.visibility_off)),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.grey.shade400)),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.grey.shade400)),
-                      suffixIcon: InkWell(
-                        onDoubleTap: () {
-                          setState(() {
-                            val = false;
-                          });
-                        },
-                        onTap: () {
-                          setState(() {
-                            val = true;
-                          });
-                        },
-                        child: Icon(
-                          Icons.hide_source,
-                          size: 22,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
                       hintStyle:
                           TextStyle(fontSize: 15, color: Colors.grey.shade600),
                       hintText: "Your Password",
@@ -117,52 +113,21 @@ class _Signup_screenState extends State<Signup_screen> {
                     ),
                   ),
                   SizedBox(height: 22),
-                  TextFormField(
-                    obscureText: val1,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Confirm your Password';
-                      }
-                      if (value != passwordcontroller.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
-                    },
-                    controller: confirmpasswordcontroller,
-                    decoration: InputDecoration(
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
-                      suffixIcon: InkWell(
-                        onDoubleTap: () {
-                          setState(() {
-                            val1 = false;
-                          });
-                        },
-                        onTap: () {
-                          setState(() {
-                            val1 = true;
-                          });
-                        },
-                        child: Icon(
-                          Icons.hide_source,
-                          size: 22,
-                          color: Colors.grey.shade500,
-                        ),
+                  Row(
+                    children: [
+                      Icon(Icons.check_box_outlined),
+                      Text("Remember Me"),
+                      SizedBox(
+                        width: 77,
                       ),
-                      hintStyle:
-                          TextStyle(fontSize: 15, color: Colors.grey.shade600),
-                      hintText: "Confirm Password",
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
-                    ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text("Forgot Password"),
+                        style: ButtonStyle(
+                            foregroundColor:
+                                WidgetStatePropertyAll(Colors.blue.shade600)),
+                      )
+                    ],
                   ),
                   SizedBox(height: 22),
                   ElevatedButton(
@@ -171,13 +136,11 @@ class _Signup_screenState extends State<Signup_screen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Login_Screen(
-                                      semail: emailcontroller.text,
-                                      spass: passwordcontroller.text,
-                                    )));
+                              builder: (context) => HomeScreen(),
+                            ));
                       }
                     },
-                    child: Text("Sign Up"),
+                    child: Text("Sign in"),
                     style: ButtonStyle(
                       shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
@@ -195,9 +158,15 @@ class _Signup_screenState extends State<Signup_screen> {
                     children: [
                       Text("Already have an account?"),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Signupscreen(),
+                              ));
+                        },
                         child: Text(
-                          "Sign In",
+                          "SignUp",
                           style: TextStyle(fontSize: 13),
                         ),
                         style: ButtonStyle(
