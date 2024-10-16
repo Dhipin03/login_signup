@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/controller/signup_screen_cvontroller.dart';
+
 import 'package:login_signup/projects/routers/routeconfig.dart';
 
-String? regpass;
-String? regemail;
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SignupScreenController.initsharedpreferences();
   runApp(MyApp());
 }
 

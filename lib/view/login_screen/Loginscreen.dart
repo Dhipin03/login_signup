@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:login_signup/main.dart';
+import 'package:login_signup/controller/signup_screen_cvontroller.dart';
 
 class Loginscreen extends StatefulWidget {
   Loginscreen({
@@ -44,7 +44,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Enter your Email address';
-                      } else if (value != regemail) {
+                      } else if (value != SignupScreenController.email) {
                         return "Invalid email";
                       } else {
                         return null;
@@ -79,7 +79,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       if (value == null || value.isEmpty) {
                         return 'Enter your Password';
                       }
-                      if (value != regpass) {
+                      if (value != SignupScreenController.password) {
                         return 'Password does not match';
                       }
                       return null;
@@ -131,6 +131,8 @@ class _LoginscreenState extends State<Loginscreen> {
                   SizedBox(height: 22),
                   ElevatedButton(
                     onPressed: () {
+                      SignupScreenController.getUser();
+                      setState(() {});
                       if (_formKey.currentState!.validate()) {
                         GoRouter.of(context).pushNamed('homescreen');
                       }

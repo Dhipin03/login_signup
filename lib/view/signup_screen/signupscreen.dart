@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:login_signup/main.dart';
+import 'package:login_signup/controller/signup_screen_cvontroller.dart';
+
 import 'package:login_signup/view/login_screen/Loginscreen.dart';
 
 class Signupscreen extends StatefulWidget {
@@ -18,6 +19,16 @@ class _SignupscreenState extends State<Signupscreen> {
   bool val1 = true;
 
   final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        await SignupScreenController.initsharedpreferences();
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,10 +170,10 @@ class _SignupscreenState extends State<Signupscreen> {
                   ),
                   SizedBox(height: 22),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await SignupScreenController.addUser(
+                          emailcontroller.text, passwordcontroller.text);
                       if (_formKey.currentState!.validate()) {
-                        regemail = emailcontroller.text;
-                        regpass = passwordcontroller.text;
                         GoRouter.of(context).pushNamed('login');
                       }
                     },
