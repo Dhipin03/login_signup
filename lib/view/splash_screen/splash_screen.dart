@@ -14,7 +14,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration(seconds: 3)).then((value) async =>
         GoRouter.of(context).goNamed(
-            await SignupScreenController.isregistered == true
+            await SignupScreenController.isLogin == true ||
+                    await SignupScreenController.isLogout == false
                 ? 'login'
                 : 'homescreen'));
     super.initState();

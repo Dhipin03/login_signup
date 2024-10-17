@@ -4,7 +4,8 @@ class SignupScreenController {
   static late final SharedPreferences prefs;
   static String? email;
   static String? password;
-  static bool isregistered = false;
+  static bool isLogin = false;
+  static bool isLogout = false;
   static Future initsharedpreferences() async {
     prefs = await SharedPreferences.getInstance();
   }
@@ -12,7 +13,11 @@ class SignupScreenController {
   static Future addUser(String email, String password) async {
     await prefs.setString('email', email);
     await prefs.setString('password', password);
-    isregistered = true;
+    isLogin = true;
+  }
+
+  static logout() {
+    isLogout = true;
   }
 
   static getUser() {
